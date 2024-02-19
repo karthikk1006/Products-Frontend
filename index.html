@@ -212,7 +212,7 @@
       });
 
       async function fetchProducts() {
-        const response=await fetch("http://localhost:3000/getproducts",{
+        const response=await fetch("https://products-api-production-7e40.up.railway.app/getproducts",{
             method:"GET",
             mode: "cors",
             headers:{
@@ -240,7 +240,7 @@
       fetchProducts();
 
       async function addProduct(formData) {
-        const response = await fetch("http://localhost:3000/addproduct",{
+        const response = await fetch("https://products-api-production-7e40.up.railway.app/addproduct",{
             method:"POST",
             mode: "cors",
             headers:{
