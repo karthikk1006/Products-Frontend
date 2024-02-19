@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Management</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      background-color: #ffffff;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    #addProductButton {
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #addProductButton:hover {
+      background-color: #0056b3;
+    }
+
+    #productCards .card {
+      margin-bottom: 20px;
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      border-radius: 15px;
+    }
+
+    .modal-header {
+      border-bottom: none;
+    }
+
+    .modal-title {
+      color: #007bff;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-secondary {
+      background-color: #ff6ec7;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e94db5;
+    }
+
+    .btn-success {
+      background-color: #39ff14;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .btn-success:hover {
+      background-color: #2db510;
+    }
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      background-color: #ffffff;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    #addProductButton {
+      background-color: #ff6ec7; /* Electric Pink */
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-family: 'Montserrat', sans-serif; /* Montserrat */
+    }
+
+    #addProductButton:hover {
+      background-color: #ff4da6; /* Slightly darker Electric Pink */
+    }
+
+    #productCards .card {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mb-5">Product Management</h1>
+    <div class="text-center">
+      <button id="addProductButton" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+    </div>
+    <div id="productCards" class="row"></div>
+  </div>
+
+  <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addProductForm">
+            <div class="form-group">
+              <label for="productId">Product ID</label>
+              <input type="text" class="form-control" id="productId" required>
+            </div>
+            <div class="form-group">
+              <label for="productName">Product Name</label>
+              <input type="text" class="form-control" id="productName" required>
+            </div>
+            <div class="form-group">
+              <label for="productPrice">Price</label>
+              <input type="number" class="form-control" id="productPrice" required>
+            </div>
+            <div class="form-group">
+              <label for="productFeatured">Featured</label>
+              <select class="form-control" id="productFeatured" required>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="productRating">Rating</label>
+              <input type="number" class="form-control" id="productRating" step="0.1" min="0" max="5" required>
+            </div>
+            <div class="form-group">
+              <label for="productCompany">Company</label>
+              <input type="text" class="form-control" id="productCompany" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const addProductForm = document.getElementById('addProductForm');
+      const productCards = document.getElementById('productCards');
+
+      addProductForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = {
+          productId: document.getElementById('productId').value,
+          name: document.getElementById('productName').value,
+          price: parseFloat(document.getElementById('productPrice').value),
+          featured: document.getElementById('productFeatured').value === 'true',
+          rating: parseFloat(document.getElementById('productRating').value),
+          createdAt: new Date().toISOString(),
+          company: document.getElementById('productCompany').value
+        };
+
+        addProduct(formData);
+        $('#addProductModal').modal('hide');
+      });
+
+      async function fetchProducts() {
+        const response=await fetch("http://localhost:3000/getproducts",{
+            method:"GET",
+            mode: "cors",
+            headers:{
+                "x-api-key":"eY4jF26h8PcnA9ZvLWtS7d5GpQb0KfD3"
+            }
+        })
+        const products= await response.json()
+        products.forEach(product => {
+          const card = `
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">${product.name}</h5>
+                  <p class="card-text">Price: ₹${product.price}</p>
+                  <p class="card-text">Rating: ${product.rating.$numberDecimal}</p>
+                  <p class="card-text">Company: ${product.company}</p>
+                </div>
+              </div>
+            </div>
+          `;
+          productCards.insertAdjacentHTML('beforeend', card);
+        });
+      }
+
+      fetchProducts();
+
+      async function addProduct(formData) {
+        const response = await fetch("http://localhost:3000/addproduct",{
+            method:"POST",
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json',
+                "x-api-key":"eY4jF26h8PcnA9ZvLWtS7d5GpQb0KfD3"
+            },
+            body:JSON.stringify(formData)
+        })
+        window.location.reload()
+      }
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
